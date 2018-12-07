@@ -19,7 +19,10 @@ var addNote = (title, body) => {
         title,
         body
     };
-    var duplicateNotes = notes.filter((note) => note.title === title);
+    var duplicateNotes = notes.filter((note) => {
+        var f = note.title === title;
+        return f;
+    });
 
     if (duplicateNotes.length === 0) {
         notes.push(note);
