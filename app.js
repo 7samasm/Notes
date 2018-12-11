@@ -41,12 +41,7 @@ notesObj = new notes.Notes(argv.title,argv.body);
 if (command === 'add')
 {
    note = notesObj.addNote();
-    if (note) {
-        console.log('Note created');
-        notesObj.logNote(note);
-    } else {
-        console.log('Note title taken');
-    }
+   note ? notesObj.logNote(note,'Note created') : console.log('Note title taken');
 }
 else if (command === 'list')
 {
@@ -57,12 +52,7 @@ else if (command === 'list')
 else if (command === 'read')
 {
     note = notesObj.getNote();
-    if (note) {
-        console.log('Note found');
-        notesObj.logNote(note);
-    } else {
-        console.log('Note not found');
-    }
+    note ? notesObj.logNote(note,'Note found'): console.log('Note not found');
 }
 else if (command === 'remove')
 {

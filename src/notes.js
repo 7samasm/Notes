@@ -4,16 +4,35 @@ function Notes (title,body)
 {
 
     this.title = title;
-    this.body =  body;
+    this.body  =  body;
+    this.note  = {
+        title : this.title,
+        body  : this.body
+    };
+
+    let fetchNotes = () => 
+    {
+        try {
+            var notesString = fs.readFileSync('notes-data.json');
+            return JSON.parse(notesString);
+        } catch (e) {
+            return [];
+        }
+    };
+
+    let saveNotes = (notes) => 
+    {
+        fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+    };
 
     this.addNote = () => 
     {
         var fetchedNotes = fetchNotes();
         var duplicateNotes = fetchedNotes.filter((note) => note.title === this.title);
         if (duplicateNotes.length === 0) {
-            fetchedNotes.push(note);
+            fetchedNotes.push(this.note);
             saveNotes(fetchedNotes);
-            return note;
+            return this.note;
         }
     };
 
@@ -37,28 +56,15 @@ function Notes (title,body)
     
         return notes.length !== filteredNotes.length;
     };
-    
-    this.logNote = (note) => 
-    {
-        console.log('--');
-        console.log(`Title: ${note.title}`);
-        console.log(`Body: ${note.body}`);
-    };
 }
 
-var fetchNotes = () => 
+Notes.prototype.logNote = (note,msg) => 
 {
-    try {
-        var notesString = fs.readFileSync('notes-data.json');
-        return JSON.parse(notesString);
-    } catch (e) {
-        return [];
-    }
-};
-
-var saveNotes = (notes) => 
-{
-    fs.writeFileSync('notes-data.json', JSON.stringify(notes));
+    msg = msg || '';
+    console.log(msg)
+    console.log('------------');
+    console.log(`Title: ${note.title}`);
+    console.log(`Body: ${note.body}`);
 };
 
 module.exports = {
