@@ -35,36 +35,38 @@ var command = argv._[0];
 
 
 
-let note;
+let note,
+notesObj = new notes.Notes(argv.title,argv.body);
+
 if (command === 'add')
 {
-    note = notes.addNote(argv.title, argv.body);
+   note = notesObj.addNote();
     if (note) {
         console.log('Note created');
-        notes.logNote(note);
+        notesObj.logNote(note);
     } else {
         console.log('Note title taken');
     }
 }
 else if (command === 'list')
 {
-    var allNotes = notes.getAll();
+    var allNotes = notesObj.getAll();
     console.log(`Printing ${allNotes.length} note(s).`);
-    allNotes.forEach((note) => notes.logNote(note));
+    allNotes.forEach((note) => notesObj.logNote(note));
 }
 else if (command === 'read')
 {
-    note = notes.getNote(argv.title);
+    note = notesObj.getNote();
     if (note) {
         console.log('Note found');
-        notes.logNote(note);
+        notesObj.logNote(note);
     } else {
         console.log('Note not found');
     }
 }
 else if (command === 'remove')
 {
-    var noteRemoved = notes.removeNote(argv.title);
+    var noteRemoved = notesObj.removeNote();
     var message = noteRemoved ? 'Note was removed' : 'Note not found';
     console.log(message);
 }
