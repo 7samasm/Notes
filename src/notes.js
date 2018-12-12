@@ -32,8 +32,9 @@ function Notes (title,body)
         if (duplicateNotes.length === 0) {
             fetchedNotes.push(this.note);
             saveNotes(fetchedNotes);
-            return this.note;
+            return true;
         }
+        return false;
     };
 
     this.getAll = () => 

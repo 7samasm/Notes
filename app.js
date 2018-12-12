@@ -4,7 +4,7 @@
 // const _ = require('lodash');
 const yargs = require('yargs');
 
-const notes = require('./src/notes.js');
+const Notes = require('./src/notes.js').Notes;
 
 const titleOptions = {
     describe: 'Title of note',
@@ -33,15 +33,13 @@ const argv = yargs
 
 var command = argv._[0];
 
-
-
 let note,
-notesObj = new notes.Notes(argv.title,argv.body);
+notesObj = new Notes(argv.title,argv.body);
 
 if (command === 'add')
 {
    note = notesObj.addNote();
-   note ? notesObj.logNote(note,'Note created') : console.log('Note title taken');
+   note ? notesObj.logNote(notesObj.note,'Note created') : console.log('Note title taken');
 }
 else if (command === 'list')
 {
